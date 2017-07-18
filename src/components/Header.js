@@ -1,12 +1,15 @@
 import React from 'react';
+// import * as firebase from 'firebase';
+// Material UI Components
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
-import FlatButton from 'material-ui/FlatButton';
-import Dialog from 'material-ui/Dialog';
 
-import LoginForm from './header/LoginForm'
+// import LoginForm from './header/LoginForm'
+import HeaderMenu from './header/HeaderMenu'
 
+
+// auth.signInWithEmailAndPassword(email,pass);
+// auth.createUserWithEmailAndPassword(email,pass);
+// auth.onAuthStateChanged(firebase => {});
 
 function handleTouchTap() {
   alert('onTouchTap triggered on the title component');
@@ -25,63 +28,24 @@ const styles = {
   },
 };
 
+
 export default class Header extends React.Component {
-  constructor(){
-    super();
-    this.state = {
-      loggedIn: false,
-      menuElement: <FlatButton label="Login" onTouchTap={this.handleOpen.bind(this)} />,
-      open: false,
-    };
-  }
-
-  isLoggedIn(){
-    if(!this.state.loggedIn){
-      this.setState({
-        menuElement: <IconButton><NavigationMenu /></IconButton>,
-      });
-    }
-  }
-
-  handleOpen() {
-    this.setState({open: true});
-  };
-
-  handleClose() {
-    this.setState({open: false});
-  };
 
   render() {
-    const actions = [
-      <FlatButton
-        label="Submit"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose.bind(this)}
-      />,
-    ];
-
     return (
         <div style={styles.header}>
           <AppBar
                 title={<span style={styles.title}>Gospel Blocks</span>}
                 onTitleTouchTap={handleTouchTap}
                 iconClassNameLeft="muidocs-icon-navigation-expand-more"
-                iconElementRight={this.state.menuElement}
+                iconElementRight={<HeaderMenu />}
                 onRightIconButtonTouchTap={login}
               />
-            <Dialog
-                title="Login"
-                actions={actions}
-                modal={false}
-                open={this.state.open}
-                onRequestClose={this.handleClose.bind(this)}
-              >
-              <LoginForm />
-            </Dialog>
+
         </div>
     );
   }
 }
-
+// iconElementRight={<FlatButton label="Login" onTouchTap={this.handleOpen.bind(this)} />}
+// iconElementRight={<IconButton style={{display: "None"}}><NavigationMenu /></IconButton>}
 // iconElementRight={<FlatButton label="Login" />}
